@@ -2,7 +2,7 @@ name: flutter_tsc
 description: A new flutter plugin project.
 version: 0.0.1
 author: Elliot Xin
-homepage: https://www.alitec.sg
+homepage: https://github.com/elliotxin/FlutterTscPlugin
 environment:
   sdk: ">=2.1.0 <3.0.0"
 
