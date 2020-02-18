@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_tsc/flutter_tsc.dart';
 
 void main() {
-  const MethodChannel channel = MethodChannel('tsc');
+  const MethodChannel channel = MethodChannel('flutter_tsc');
 
   TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -18,6 +18,6 @@ void main() {
   });
 
   test('getPlatformVersion', () async {
-    expect(await Tsc.print(), '42');
+    expect(await FlutterTsc.print(), '42');
   });
 }

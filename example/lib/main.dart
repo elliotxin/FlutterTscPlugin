@@ -10,7 +10,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String _printMessage = '未打印';
+  String _printMessage = 'unknow';
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +47,7 @@ class _MyAppState extends State<MyApp> {
     String printMessage;
     try {
       printMessage =
-          await Tsc.print(ipAddress: '192.168.5.101', label: 'apple');
+          await FlutterTsc.print(ipAddress: '192.168.5.101', label: 'apple');
     } on PlatformException {
       printMessage = 'Failed to communcate with this printer. ';
     }

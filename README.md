@@ -1,6 +1,6 @@
-# tsc
+# flutter_tsc
 
-A new flutter plugin project.
+A new Flutter plugin.
 
 ## Getting Started
 

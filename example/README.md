@@ -1,6 +1,6 @@
-# tsc_example
+# flutter_tsc_example
 
-Demonstrates how to use the tsc plugin.
+Demonstrates how to use the flutter_tsc plugin.
 
 ## Getting Started
 

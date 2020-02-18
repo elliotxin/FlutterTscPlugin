@@ -1,5 +1,5 @@
-name: tsc_example
-description: Demonstrates how to use the tsc plugin.
+name: flutter_tsc_example
+description: Demonstrates how to use the flutter_tsc plugin.
 publish_to: 'none'
 
 environment:

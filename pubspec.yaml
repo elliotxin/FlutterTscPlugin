@@ -1,7 +1,9 @@
 name: flutter_tsc
-description: A new flutter plugin project.
-version: 0.0.1
+description: A new Flutter plugin.
+version: 0.0.2
+author: elliotxin <elliot@alitec.sg>
 homepage: https://github.com/elliotxin/FlutterTscPlugin
+
 environment:
   sdk: ">=2.1.0 <3.0.0"
 
@@ -23,7 +25,7 @@ flutter:
   # be modified. They are used by the tooling to maintain consistency when
   # adding or updating assets for this project.
   plugin:
-    androidPackage: com.alitec.tsc
+    androidPackage: sg.alitec.flutter_tsc
     pluginClass: FlutterTscPlugin
 
   # To add assets to your plugin package, add an assets section, like this:

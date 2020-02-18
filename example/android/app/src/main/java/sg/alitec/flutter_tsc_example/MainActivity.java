@@ -1,4 +1,4 @@
-package com.alitec.tsc_example;
+package sg.alitec.flutter_tsc_example;
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity;
