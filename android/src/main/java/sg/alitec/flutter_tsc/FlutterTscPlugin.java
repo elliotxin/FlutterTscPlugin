@@ -31,20 +31,43 @@ public class FlutterTscPlugin implements FlutterPlugin, MethodCallHandler {
     if (call.method.equals("print")) {
       String ipAddress = call.argument("ipAddress");
       String label = call.argument("label");
+      String number = call.argument("number");
+      String demand = call.argument("demand");
+      String uom = call.argument("uom");
+      String received = call.argument("received");
+      String poNum = call.argument("origin");
+      String vendor = call.argument("contact");
+      String expiryDate = call.argument("expiryDate");
+      String currentDate = call.argument("currentDate");
+      String location = call.argument("location");
+      String staffId = call.argument("staffId");
+      String productCode = call.argument("productCode");
+
+      int num = Integer.parseInt(number);
+      String uomString = received + "/" + demand + " " + uom;
+      String poString = poNum + "(" + vendor + ")";
+      String expString = "EXP: " + expiryDate;
+
       TscEthernetDll.openport(ipAddress,9100, 50);   	
-	    TscEthernetDll.sendcommand("SIZE 75 mm, 50 mm\r\n");
-	    TscEthernetDll.clearbuffer();
-	    TscEthernetDll.sendcommand("SPEED 4\r\n");
-	    TscEthernetDll.sendcommand("DENSITY 12\r\n");
-	    TscEthernetDll.sendcommand("CODEPAGE UTF-8\r\n");
-	    TscEthernetDll.sendcommand("SET TEAR ON\r\n");
-	    TscEthernetDll.sendcommand("SET COUNTER @1 1\r\n");
-	    TscEthernetDll.sendcommand("@1 = \"0001\"\r\n");
-	    TscEthernetDll.sendcommand("TEXT 100,300,\"ROMAN.TTF\",0,12,12,@1\r\n");
-	    TscEthernetDll.sendcommand("TEXT 100,400,\"ROMAN.TTF\",0,12,12,\"TEST FONT\"\r\n");
-	    TscEthernetDll.barcode(100, 100, "128", 100, 1, 0, 3, 3, label);
-	    TscEthernetDll.printerfont(100, 250, "3", 0, 1, 1, label);
-	    TscEthernetDll.printlabel(1, 1);
+      TscEthernetDll.setup(76, 25, 4, 12, 0, 3, 0);
+      TscEthernetDll.clearbuffer();
+      TscEthernetDll.sendcommand("SET COUNTER @1 1\n"); 
+      TscEthernetDll.sendcommand("@1 = \"1\"\n"); 
+	    TscEthernetDll.barcode(-32, 0, "128", 46, 3, 0, 3, 3,label);
+      TscEthernetDll.printerfont(-328, -8, "4", 0, 1, 1, "Sea Bulk");
+      TscEthernetDll.printerfont(-552, -16, "3", 0, 1, 1, staffId);//Staff ID
+      TscEthernetDll.printerfont(-14, -80, "2", 0, 1, 1, label);
+      TscEthernetDll.printerfont(-328, -80, "2", 0, 1, 1, productCode); //product code
+      TscEthernetDll.printerfont(-14, -104, "2", 0, 1, 1, uomString);
+      TscEthernetDll.printerfont(-328, -104, "2", 0, 1, 1, poString);
+      TscEthernetDll.printerfont(-14, -128, "2", 0, 1, 1, expString);
+      TscEthernetDll.printerfont(-328, -128, "2", 0, 1, 1, currentDate);
+      TscEthernetDll.sendcommand("TEXT -14,-160,\"3\",0,1,1,@1\n");
+      TscEthernetDll.printerfont(-96, -160, "2", 0, 1, 1, "of");
+      TscEthernetDll.printerfont(-128, -160, "3", 0, 1, 1, number);
+      TscEthernetDll.printerfont(-256, -160, "4", 0, 1, 1, "INBOUND");
+      TscEthernetDll.printerfont(-462, -160, "3", 0, 1, 1, location);
+	    TscEthernetDll.printlabel(num, 1);
 	    TscEthernetDll.closeport();
       result.success("Success printing");
     } else {
