@@ -5,7 +5,8 @@ class FlutterTsc {
   static const MethodChannel _channel = const MethodChannel('flutter_tsc');
   static Future<String> print({
     String ipAddress,
-    String label,
+    String lot,
+    String product,
     String number,
     String demand,
     String uom,
@@ -20,7 +21,8 @@ class FlutterTsc {
   }) async {
     final String result = await _channel.invokeMethod('print', {
       'ipAddress': ipAddress,
-      'label': label,
+      'lot': lot,
+      'product': product,
       'number': number,
       'demand': demand,
       'uom': uom,

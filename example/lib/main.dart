@@ -11,8 +11,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   String _printMessage = 'unknow';
-  // final TextEditingController _xController = TextEditingController();
-  // final TextEditingController _yController = TextEditingController();
+  final TextEditingController _xController = TextEditingController();
   final TextEditingController _numberOfLabel = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -29,6 +28,10 @@ class _MyAppState extends State<MyApp> {
               TextField(
                 controller: _numberOfLabel,
                 decoration: InputDecoration(labelText: 'Number of Label'),
+              ),
+              TextField(
+                controller: _xController,
+                decoration: InputDecoration(labelText: 'label'),
               ),
               Text(_printMessage),
               SizedBox(height: 20),
@@ -53,10 +56,12 @@ class _MyAppState extends State<MyApp> {
   Future<void> print() async {
     String printMessage;
     String number = _numberOfLabel.text;
+    String product = _xController.text;
     try {
       printMessage = await FlutterTsc.print(
         ipAddress: '192.168.0.153',
-        label: 'Apple',
+        product: product,
+        lot: '200319004700001',
         number: number,
         demand: '50',
         uom: 'KG',
