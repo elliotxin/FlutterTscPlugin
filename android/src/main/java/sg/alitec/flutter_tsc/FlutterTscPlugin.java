@@ -41,8 +41,8 @@ public class FlutterTscPlugin implements FlutterPlugin, MethodCallHandler {
       String expiryDate = call.argument("expiryDate");
       String currentDate = call.argument("currentDate");
       String location = call.argument("location");
-      String staffId = call.argument("staffId") == null ? '' : call.argument("staffId") ;
-      String productCode = call.argument("productCode") == null ? '' : call.argument("productCode");
+      String staffId = call.argument("staffId");
+      String productCode = call.argument("productCode");
 
       int num = Integer.parseInt(number);
       String uomString = received + "/" + demand + " " + uom;
