@@ -40,11 +40,23 @@ class _MyAppState extends State<MyApp> {
                     borderRadius: BorderRadius.circular(20.0)),
                 minWidth: 300,
                 height: 50,
-                child: Text('Print'),
+                child: Text('inbound'),
                 color: Colors.black,
                 textColor: Colors.white,
                 elevation: 15,
-                onPressed: print,
+                onPressed: inbound,
+              ),
+              SizedBox(height: 20),
+              MaterialButton(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20.0)),
+                minWidth: 300,
+                height: 50,
+                child: Text('outbound'),
+                color: Colors.black,
+                textColor: Colors.white,
+                elevation: 15,
+                onPressed: outbound,
               ),
             ],
           ),
@@ -53,13 +65,13 @@ class _MyAppState extends State<MyApp> {
     );
   }
 
-  Future<void> print() async {
+  Future<void> inbound() async {
     String printMessage;
     String number = _numberOfLabel.text;
     String product = _xController.text;
     try {
-      printMessage = await FlutterTsc.print(
-        ipAddress: '192.168.0.153',
+      printMessage = await FlutterTsc.inbound(
+        ipAddress: '192.168.5.103',
         product: product,
         lot: '200319004700001',
         number: number,
@@ -73,6 +85,34 @@ class _MyAppState extends State<MyApp> {
         location: 'WH/Stock',
         staffId: 'D01',
         productCode: 'FV-VOS-EDFLMG',
+      );
+    } on PlatformException {
+      printMessage = 'Failed to communcate with this printer. ';
+    }
+
+    setState(() {
+      _printMessage = printMessage;
+    });
+  }
+
+  Future<void> outbound() async {
+    String printMessage;
+    String number = _numberOfLabel.text;
+    try {
+      printMessage = await FlutterTsc.outbound(
+        ipAddress: '192.168.5.103',
+        label: '200319004700001',
+        number: number,
+        product: 'fruit1',
+        qtyDone: '25.0 KG',
+        customer: 'Hotel1',
+        pickId: '01',
+        packId: '02',
+        invoice: 'INV: 20-020340',
+        outlet: 'CAFETERIA',
+        date: '03 JUN 2020',
+        custId: 'C10',
+        route: 'R1',
       );
     } on PlatformException {
       printMessage = 'Failed to communcate with this printer. ';

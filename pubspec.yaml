@@ -1,6 +1,6 @@
 name: flutter_tsc
 description: A new Flutter plugin.
-version: 0.0.4+1
+version: 0.0.5
 author: elliotxin <elliot@alitec.sg>
 homepage: https://github.com/elliotxin/FlutterTscPlugin
 

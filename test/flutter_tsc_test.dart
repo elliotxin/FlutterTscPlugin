@@ -18,6 +18,6 @@ void main() {
   });
 
   test('getPlatformVersion', () async {
-    expect(await FlutterTsc.print(), '42');
+    expect(await FlutterTsc.inbound(), '42');
   });
 }
