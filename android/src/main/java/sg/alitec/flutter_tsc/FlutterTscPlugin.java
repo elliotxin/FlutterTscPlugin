@@ -54,7 +54,13 @@ public class FlutterTscPlugin implements FlutterPlugin, MethodCallHandler {
       TscEthernetDll.clearbuffer();
       TscEthernetDll.sendcommand("DIRECTION 1\n");
       TscEthernetDll.sendcommand("SET COUNTER @1 1\n"); 
-      TscEthernetDll.sendcommand("@1 = \"1\"\n"); 
+      if (num < 10) {
+        TscEthernetDll.sendcommand("@1 = \"1\"\n"); 
+      } else if (num < 100) {
+        TscEthernetDll.sendcommand("@01 = \"1\"\n"); 
+      }else {
+        TscEthernetDll.sendcommand("@001 = \"1\"\n"); 
+      }
       TscEthernetDll.barcode(16, 0, "128", 46, 2, 0, 2, 2,lot);
       TscEthernetDll.printerfont(328, 8, "3", 0, 1, 1, "Sea Bulk");
       TscEthernetDll.printerfont(552, 16, "3", 0, 1, 1, staffId);
@@ -64,10 +70,10 @@ public class FlutterTscPlugin implements FlutterPlugin, MethodCallHandler {
       TscEthernetDll.printerfont(328, 104, "2", 0, 1, 1, poString);
       TscEthernetDll.printerfont(14, 128, "2", 0, 1, 1, expString);
       TscEthernetDll.printerfont(328, 128, "2", 0, 1, 1, currentDate);
-      TscEthernetDll.sendcommand("TEXT 14,160,\"3\",0,1,1,@1\n");
+      TscEthernetDll.sendcommand("TEXT 42,160,\"3\",0,1,1,@1\n");
       TscEthernetDll.printerfont(96, 160, "2", 0, 1, 1, "of");
       TscEthernetDll.printerfont(128, 160, "3", 0, 1, 1, number);
-      TscEthernetDll.printerfont(256, 160, "4", 0, 1, 1, "INBOUND");
+      TscEthernetDll.printerfont(228, 160, "4", 0, 1, 1, "INBOUND");
       TscEthernetDll.printerfont(462, 160, "3", 0, 1, 1, location);
 	    TscEthernetDll.printlabel(num, 1);
 	    TscEthernetDll.closeport();
@@ -97,7 +103,13 @@ public class FlutterTscPlugin implements FlutterPlugin, MethodCallHandler {
       TscEthernetDll.clearbuffer();
       TscEthernetDll.sendcommand("DIRECTION 1\n");
       TscEthernetDll.sendcommand("SET COUNTER @1 1\n"); 
-      TscEthernetDll.sendcommand("@1 = \"1\"\n");
+      if (num < 10){
+        TscEthernetDll.sendcommand("@1 = \"1\"\n"); 
+      } else if (num < 100) {
+        TscEthernetDll.sendcommand("@01 = \"1\"\n"); 
+      }else {
+        TscEthernetDll.sendcommand("@001 = \"1\"\n"); 
+      }
       TscEthernetDll.barcode(16, 0, "128", 32, 2, 0, 2, 2,label);
       TscEthernetDll.printerfont(328, 8, "3", 0, 1, 1, "Sea Bulk");
       TscEthernetDll.printerfont(496, 8, "3", 0, 1, 1, pickId);

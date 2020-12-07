@@ -71,7 +71,7 @@ class _MyAppState extends State<MyApp> {
     String product = _xController.text;
     try {
       printMessage = await FlutterTsc.inbound(
-        ipAddress: '192.168.5.103',
+        ipAddress: '192.168.7.134',
         product: product,
         lot: '200319004700001',
         number: number,
@@ -100,7 +100,7 @@ class _MyAppState extends State<MyApp> {
     String number = _numberOfLabel.text;
     try {
       printMessage = await FlutterTsc.outbound(
-        ipAddress: '192.168.5.103',
+        ipAddress: '192.168.7.134',
         label: '200319004700001',
         number: number,
         product: 'fruit1',
