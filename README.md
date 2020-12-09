@@ -1,6 +1,6 @@
 # flutter_tsc
 
-A new Flutter plugin.
+Flutter TSC Printer plugin.
 
 ## Getting Started
 
