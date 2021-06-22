@@ -33,9 +33,11 @@ public class FlutterTscPlugin implements FlutterPlugin, MethodCallHandler {
       String lot = call.argument("lot");
       String product = call.argument("product");
       String number = call.argument("number");
-      String demand = call.argument("demand");
+      String purchaseUom = call.argument("purchaseUom");
       String uom = call.argument("uom");
-      String received = call.argument("received");
+      String uomQty = call.argument("uomQty");
+      String printedName = call.argument("printedName");
+      String done = call.argument("received");
       String poNum = call.argument("origin");
       String vendor = call.argument("contact");
       String expiryDate = call.argument("expiryDate");
@@ -45,8 +47,13 @@ public class FlutterTscPlugin implements FlutterPlugin, MethodCallHandler {
       String productCode = call.argument("productCode");
 
       int num = Integer.parseInt(number);
-      String uomString = received + "/" + demand + " " + uom;
-      String poString = poNum + "(" + vendor + ")";
+      String uomString = '';
+      if(uom == purchaseUom) {
+          uomString = done + " " + uom;
+      } else {
+          uomString = uom_qty + " " + printedName + " " + "(" + done + " " + uom + ")";
+      }
+      String poString = poNum;
       String expString = "EXP: " + expiryDate;
 
       TscEthernetDll.openport(ipAddress,9100, 50);   	
@@ -65,7 +72,7 @@ public class FlutterTscPlugin implements FlutterPlugin, MethodCallHandler {
       TscEthernetDll.printerfont(328, 8, "3", 0, 1, 1, "Sea Bulk");
       TscEthernetDll.printerfont(552, 16, "3", 0, 1, 1, staffId);
       TscEthernetDll.printerfont(14, 80, "2", 0, 1, 1, product);
-      TscEthernetDll.printerfont(328, 80, "2", 0, 1, 1, productCode);
+      TscEthernetDll.printerfont(328, 80, "2", 0, 1, 1, vendor);
       TscEthernetDll.printerfont(14, 104, "2", 0, 1, 1, uomString);
       TscEthernetDll.printerfont(328, 104, "2", 0, 1, 1, poString);
       TscEthernetDll.printerfont(14, 128, "2", 0, 1, 1, expString);
