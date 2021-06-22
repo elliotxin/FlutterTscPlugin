@@ -47,11 +47,11 @@ public class FlutterTscPlugin implements FlutterPlugin, MethodCallHandler {
       String productCode = call.argument("productCode");
 
       int num = Integer.parseInt(number);
-      String uomString = '';
+      String uomString;
       if(uom == purchaseUom) {
           uomString = done + " " + uom;
       } else {
-          uomString = uom_qty + " " + printedName + " " + "(" + done + " " + uom + ")";
+          uomString = uomQty + " " + printedName + " " + "(" + done + " " + uom + ")";
       }
       String poString = poNum;
       String expString = "EXP: " + expiryDate;
