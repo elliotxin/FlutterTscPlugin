@@ -37,7 +37,7 @@ public class FlutterTscPlugin implements FlutterPlugin, MethodCallHandler {
       String uom = call.argument("uom");
       String uomQty = call.argument("uomQty");
       String printedName = call.argument("printedName");
-      String done = call.argument("received");
+      String done = call.argument("done");
       String poNum = call.argument("origin");
       String vendor = call.argument("contact");
       String expiryDate = call.argument("expiryDate");

@@ -1,3 +1,3 @@
-## 0.0.9
+## 0.1.0
 
 * Now you can use flutter working with TSC label printer.
