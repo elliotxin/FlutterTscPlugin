@@ -88,52 +88,55 @@ public class FlutterTscPlugin implements FlutterPlugin, MethodCallHandler {
     } else if (call.method.equals("outbound")) {
       String ipAddress = call.argument("ipAddress");
       String label = call.argument("label");
-      String pickId = call.argument("pickId");
-      String packId = call.argument("packId");
-      String number = call.argument("number");
-      String qtyDone = call.argument("qtyDone");
       String product = call.argument("product");
+      String qtyDone = call.argument("qtyDone");
+      String expireDate = call.argument("expireDate");
+      String packDate = call.argument("packDate");
       String invoice = call.argument("invoice");
+      String po = call.argument("po");
       String customer = call.argument("customer");
       String outlet = call.argument("outlet");
-      String date = call.argument("date");
-      String custId = call.argument("custId");
-      String route = call.argument("route");
+      String number = call.argument("number");
+      String ref = call.argument("ref");
+      String internalNote = call.argument("internalNote");
 
-      String invoiceStr = String.format("TEXT 552,80,\"2\",0,1,1,3, \"%s\"\n", invoice);
-      String customerStr = String.format("TEXT 552,100,\"2\",0,1,1,3, \"%s\"\n", customer);
-      String outletStr = String.format("TEXT 552,120,\"2\",0,1,1,3, \"%s\"\n", outlet);
+
+      String invoiceStr = String.format("TEXT 600,40,\"2\",0,1,1,3, \"%s\"\n", invoice);
+      String poStr = String.format("TEXT 600,60,\"2\",0,1,1,3, \"%s\"\n", po);
+      String customerStr = String.format("TEXT 600,88,\"2\",0,1,1,3, \"%s\"\n", customer);
+      String outletStr = String.format("TEXT 600,112,\"2\",0,1,1,3, \"%s\"\n", outlet);
       int num = Integer.parseInt(number);
-
-      TscEthernetDll.openport(ipAddress,9100, 50);   	
-      TscEthernetDll.setup(76, 25, 4, 12, 0, 3, 0);
-      TscEthernetDll.clearbuffer();
-      TscEthernetDll.sendcommand("DIRECTION 1\n");
-      TscEthernetDll.sendcommand("SET COUNTER @1 1\n"); 
-      if (num < 10){
-        TscEthernetDll.sendcommand("@1 = \"1\"\n"); 
-      } else if (num < 100) {
-        TscEthernetDll.sendcommand("@01 = \"1\"\n"); 
-      }else {
-        TscEthernetDll.sendcommand("@001 = \"1\"\n"); 
+      String expireDateString;
+      if (expireDate.length()!= 0) {
+        expireDateString = "EXPIRY DATE: " + expireDate;
+        TscEthernetDll.openport(ipAddress,9100, 50);   	
+        TscEthernetDll.setup(76, 25, 4, 12, 0, 3, 0);
+        TscEthernetDll.clearbuffer();
+        TscEthernetDll.sendcommand("DIRECTION 1\n");
+        TscEthernetDll.sendcommand("SET COUNTER @1 1\n"); 
+        TscEthernetDll.barcode(16, 0, "128", 32, 2, 0, 2, 2,label);
+        TscEthernetDll.printerfont(328, 7, "3", 0, 1, 1, "Sea Bulk");
+        TscEthernetDll.printerfont(14, 60, "2", 0, 1, 1, expireDateString);
+      } else {
+        TscEthernetDll.openport(ipAddress,9100, 50);   	
+        TscEthernetDll.setup(76, 25, 4, 12, 0, 3, 0);
+        TscEthernetDll.clearbuffer();
+        TscEthernetDll.sendcommand("DIRECTION 1\n");
+        TscEthernetDll.sendcommand("SET COUNTER @1 1\n"); 
+        TscEthernetDll.barcode(16, 0, "128", 32, 2, 0, 2, 2,label);
+        TscEthernetDll.printerfont(328, 7, "3", 0, 1, 1, "Sea Bulk");
       }
-      TscEthernetDll.barcode(16, 0, "128", 32, 2, 0, 2, 2,label);
-      TscEthernetDll.printerfont(328, 8, "3", 0, 1, 1, "Sea Bulk");
-      TscEthernetDll.printerfont(496, 8, "3", 0, 1, 1, pickId);
-      TscEthernetDll.printerfont(528, 8, "3", 0, 1, 1, "|");
-      TscEthernetDll.printerfont(552, 8, "3", 0, 1, 1, packId);
-      TscEthernetDll.printerfont(14, 64, "2", 0, 1, 1, product);
-      TscEthernetDll.printerfont(14, 88, "2", 0, 1, 1, qtyDone);
-      TscEthernetDll.printerfont(14, 144, "2", 0, 1, 1, "DELIVERY DATE:");
-      TscEthernetDll.printerfont(14, 164, "2", 0, 1, 1, date);
-      TscEthernetDll.sendcommand("TEXT 288,160,\"3\",0,1,1,@1\n");
-      TscEthernetDll.printerfont(320, 160, "2", 0, 1, 1, "of");
+      TscEthernetDll.printerfont(14, 88, "2", 0, 1, 1, product);
+      TscEthernetDll.printerfont(14, 112, "2", 0, 1, 1, qtyDone);
+      TscEthernetDll.printerfont(14, 144, "2", 0, 1, 1, "PACK DATE:");
+      TscEthernetDll.printerfont(14, 164, "2", 0, 1, 1, packDate);
       TscEthernetDll.printerfont(352, 160, "3", 0, 1, 1, number);
       TscEthernetDll.sendcommand(invoiceStr.getBytes());
+      TscEthernetDll.sendcommand(poStr.getBytes());
       TscEthernetDll.sendcommand(customerStr.getBytes());
       TscEthernetDll.sendcommand(outletStr.getBytes());
-      TscEthernetDll.printerfont(416, 160, "3", 0, 1, 1, custId);
-      TscEthernetDll.printerfont(488, 160, "3", 0, 1, 1, route);
+      TscEthernetDll.printerfont(416, 160, "3", 0, 1, 1, ref);
+      TscEthernetDll.printerfont(560, 160, "4", 0, 1, 1, internalNote);
       TscEthernetDll.printlabel(num, 1);
       TscEthernetDll.closeport();
       result.success("Success outbound printing");

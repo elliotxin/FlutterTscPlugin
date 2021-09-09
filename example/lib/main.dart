@@ -11,14 +11,15 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   String _printMessage = 'unknow';
-  final TextEditingController _xController = TextEditingController();
-  final TextEditingController _numberOfLabel = TextEditingController();
+  final TextEditingController _product = TextEditingController();
+  final TextEditingController _ipLabel = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Plugin example app'),
+          title: const Text('TSC Printer Test Kit'),
+          centerTitle: true,
         ),
         body: Container(
           padding: EdgeInsets.all(16.0),
@@ -26,12 +27,12 @@ class _MyAppState extends State<MyApp> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               TextField(
-                controller: _numberOfLabel,
-                decoration: InputDecoration(labelText: 'Number of Label'),
+                controller: _ipLabel,
+                decoration: InputDecoration(labelText: 'IP Address'),
               ),
               TextField(
-                controller: _xController,
-                decoration: InputDecoration(labelText: 'label'),
+                controller: _product,
+                decoration: InputDecoration(labelText: 'Product'),
               ),
               Text(_printMessage),
               SizedBox(height: 20),
@@ -45,6 +46,18 @@ class _MyAppState extends State<MyApp> {
                 textColor: Colors.white,
                 elevation: 15,
                 onPressed: inbound,
+              ),
+              SizedBox(height: 20),
+              MaterialButton(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20.0)),
+                minWidth: 300,
+                height: 50,
+                child: Text('outbound(Exp)'),
+                color: Colors.black,
+                textColor: Colors.white,
+                elevation: 15,
+                onPressed: outboundExp,
               ),
               SizedBox(height: 20),
               MaterialButton(
@@ -67,14 +80,14 @@ class _MyAppState extends State<MyApp> {
 
   Future<void> inbound() async {
     String printMessage;
-    String number = _numberOfLabel.text;
-    String product = _xController.text;
+    String idAddress = _ipLabel.text;
+    String product = _product.text;
     try {
       printMessage = await FlutterTsc.inbound(
-        ipAddress: '192.168.7.134',
+        ipAddress: idAddress,
         product: product,
         lot: '200319004700001',
-        number: number,
+        number: '1',
         uomQty: '50',
         uom: 'KG',
         done: '20',
@@ -97,22 +110,52 @@ class _MyAppState extends State<MyApp> {
 
   Future<void> outbound() async {
     String printMessage;
-    String number = _numberOfLabel.text;
+    String idAddress = _ipLabel.text;
+    String product = _product.text;
     try {
       printMessage = await FlutterTsc.outbound(
-        ipAddress: '192.168.7.134',
+        ipAddress: idAddress,
         label: '200319004700001',
-        number: number,
-        product: 'fruit1',
-        qtyDone: '25.0 KG',
-        customer: 'Hotel1',
-        pickId: '01',
-        packId: '02',
-        invoice: 'INV: 20-020340',
-        outlet: 'CAFETERIA',
-        date: '03 JUN 2020',
-        custId: 'C10',
-        route: 'R1',
+        product: product,
+        qtyDone: '3.4 KG',
+        expireDate: '',
+        packDate: '03 JUN 2021',
+        invoice: 'INV: 21034539',
+        po: 'PO: 00000066402',
+        customer: 'ANDAZ',
+        outlet: '665F',
+        number: '1',
+        ref: 'A20',
+        internalNote: 'R1',
+      );
+    } on PlatformException {
+      printMessage = 'Failed to communcate with this printer. ';
+    }
+
+    setState(() {
+      _printMessage = printMessage;
+    });
+  }
+
+  Future<void> outboundExp() async {
+    String printMessage;
+    String idAddress = _ipLabel.text;
+    String product = _product.text;
+    try {
+      printMessage = await FlutterTsc.outbound(
+        ipAddress: idAddress,
+        label: '200319004700001',
+        product: product,
+        qtyDone: '3.4 KG',
+        expireDate: '06 JUN 2021',
+        packDate: '03 JUN 2021',
+        invoice: 'INV: 21034539',
+        po: 'PO: 00000066402',
+        customer: 'ANDAZ',
+        outlet: '665F',
+        number: '1',
+        ref: 'A20',
+        internalNote: 'R1',
       );
     } on PlatformException {
       printMessage = 'Failed to communcate with this printer. ';
